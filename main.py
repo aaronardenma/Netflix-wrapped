@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv('ViewingActivity.csv')
+netflix_titles = pd.read_csv('netflix_titles.csv')
 
 df = df[df['Supplemental Video Type'].isna()]
 
@@ -18,28 +19,43 @@ def duration_hrs(df):
         
     return df
 
-df['Year'] = df['Start Time'].dt.strftime('%Y')
+df['Year'] = df['Start Time'].dt.strftime('%Y').astype(int)
 
 users = df['Profile Name'].unique()
 years = df['Year'].unique()
 
+print(df[df['Year'] == 2022])
+
+# df = df.drop(columns= ['Attributes', 'Bookmark', 'Latest Bookmark'])
+
+# duration_hrs(df)
+
+# ### Total durations per content in descending order
+
+# def sum_duration_unique_content(df):
+#     sum_durations_df = df[['Title', 'Duration (hrs)']]
+#     sum_durations_df = (sum_durations_df.groupby(by = ['Title'])
+#                         .sum()
+#                         .sort_values(by= ['Duration (hrs)'], ascending= True)
+#                         .rename(columns={'Duration (hrs)': 'Total Duration (hrs)'}))
+
+#     return sum_durations_df
 
 
-df = df.drop(columns= ['Attributes', 'Bookmark', 'Latest Bookmark'])
-
-duration_hrs(df)
-sum_durations_df = df[['Title', 'Duration (hrs)']]
-sum_durations_df = sum_durations_df.groupby(by = ['Title']).sum().sort_values(by= ['Duration (hrs)'], ascending= True).rename(columns={'Duration (hrs)': 'Total Duration (hrs)'})
-
-print(sum_durations_df.head(20))
+# # print(netflix_titles[netflix_titles['title'].duplicated()])
 
 
+# ### Stats
+# number_content_pieces_watched = len(df['Title'].unique())
 
+# def total_hrs_watched():
+#     return
+# total_hrs_watched = sum_durations_df['Total Duration (hrs)'].sum().round(2)
 
-### Stats
-number_content_pieces_watched = len(df['Title'].unique())
+# print(total_hrs_watched)
 
-# print(duration_hrs(df).head(10))
 # for user in users:
 #     user_df = df[df['Profile Name'] == user]
-#     print(user_df)
+
+#     for year in years:
+#         df[df['Year'] == year]
