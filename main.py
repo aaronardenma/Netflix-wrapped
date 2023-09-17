@@ -32,14 +32,20 @@ print(df[df['Year'] == 2022])
 
 # ### Total durations per content in descending order
 
-# def sum_duration_unique_content(df):
-#     sum_durations_df = df[['Title', 'Duration (hrs)']]
-#     sum_durations_df = (sum_durations_df.groupby(by = ['Title'])
-#                         .sum()
-#                         .sort_values(by= ['Duration (hrs)'], ascending= True)
-#                         .rename(columns={'Duration (hrs)': 'Total Duration (hrs)'}))
+titles = df['Title']
+for title in titles:
+    netflix_titles[netflix_titles['title'] == title]
 
-#     return sum_durations_df
+
+def sum_duration_unique_content(df):
+    sum_durations_df = df[['Title', 'Duration (hrs)']]
+    sum_durations_df = (sum_durations_df.groupby(by = ['Title'])
+                        .sum()
+                        .sort_values(by= ['Duration (hrs)'], ascending= True)
+                        .rename(columns={'Duration (hrs)': 'Total Duration (hrs)'}))
+
+
+    return sum_durations_df
 
 
 # # print(netflix_titles[netflix_titles['title'].duplicated()])
